@@ -29,6 +29,7 @@ namespace kOS.AddOns.kOSEVA
 		{
 
 			AddSuffix("TOGGLE_RCS", new OneArgsSuffix<BooleanValue>(ToggleRCS, "Switch the RCS of the Pack <on|off>"));
+			AddSuffix("RCS", new SetSuffix<BooleanValue>(GetRCS, SetRCS, "Querry or set the status of the pack RCS"));
 			AddSuffix("LIGHTS", new SetSuffix<BooleanValue>(GetLights, SetLights, "Querry or set the status of the headlamps"));
 			AddSuffix("DOEVENT", new TwoArgsSuffix<Suffixed.Part.PartValue, StringValue>(DoEvent, "Performs a Event on a others vessel part."));
 			AddSuffix("LADDER_RELEASE", new NoArgsVoidSuffix(LadderRelease, "Release a grabbed ladder"));
@@ -158,6 +159,20 @@ namespace kOS.AddOns.kOSEVA
 			}
 		}
 
+		private BooleanValue GetRCS()
+		{
+			CheckEvaController();
+			return kerbaleva.JetpackDeployed;
+		}
+
+		private void SetRCS(BooleanValue state)
+		{
+			CheckEvaController();
+			if (kerbaleva.JetpackDeployed != state)
+			{
+				kerbaleva.ToggleJetpack();
+			}
+		}
 		private BooleanValue GetLights()
 		{
 			CheckEvaController();
