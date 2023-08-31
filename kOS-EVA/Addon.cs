@@ -162,30 +162,46 @@ namespace kOS.AddOns.kOSEVA
 		private BooleanValue GetRCS()
 		{
 			CheckEvaController();
-			return kerbaleva.JetpackDeployed;
+			try
+			{
+				return kerbaleva.JetpackDeployed;
+			}
+			catch { return false; }
 		}
 
 		private void SetRCS(BooleanValue state)
 		{
 			CheckEvaController();
-			if (kerbaleva.JetpackDeployed != state)
+			try
 			{
-				kerbaleva.ToggleJetpack();
+				if (kerbaleva.JetpackDeployed != state)
+				{
+					kerbaleva.ToggleJetpack();
+				}
 			}
+			catch { }
 		}
 		private BooleanValue GetLights()
 		{
 			CheckEvaController();
-			return kerbaleva.lampOn;
+			try
+			{
+				return kerbaleva.lampOn;
+			}
+			catch { return false; }
 		}
 
 		private void SetLights(BooleanValue state)
 		{
 			CheckEvaController();
-			if (kerbaleva.lampOn != state)
+			try
 			{
-				kerbaleva.ToggleLamp();
+				if (kerbaleva.lampOn != state)
+				{
+					kerbaleva.ToggleLamp();
+				}
 			}
+			catch { }
 		}
 
 		private void DoEvent(Suffixed.Part.PartValue part , StringValue eventname)
